@@ -16,4 +16,8 @@ spec:
         - name: flash-book-api
           image: abhishekcrm/flash-book-api:latest  # Ensure this image name is correct
           ports:
+<<<<<<< HEAD
             - containerPort: 5000
+=======
+            - containerPort: 5000
+>>>>>>> 6083ecb13b8530711c343fb52b92ecb52d98c68b
