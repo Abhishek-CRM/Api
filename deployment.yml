@@ -1,19 +1,29 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: crud-api
+  name: flash-book-api-deployment
+  labels:
+    app: flash-book-api
 spec:
-  replicas: 1
+  replicas: 2  # Number of replicas (adjust based on your requirements)
   selector:
     matchLabels:
-      app: crud-api
+      app: flash-book-api
   template:
     metadata:
       labels:
-        app: crud-api
+        app: flash-book-api
     spec:
       containers:
-      - name: crud-api
-        image: <your-dockerhub-username>/crud-api:latest
-        ports:
-        - containerPort: 5000
+        - name: flash-book-api
+          image: ${{ secrets.DOCKER_USERNAME }}/flash-book-api:latest  # This will be updated during CI/CD
+          ports:
+            - containerPort: 5000
+          env:
+            - name: FLASK_ENV
+              value: "production"
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: db-secrets
+                  key: database-url 
