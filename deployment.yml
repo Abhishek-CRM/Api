@@ -2,10 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: flash-book-api-deployment
-  labels:
-    app: flash-book-api
 spec:
-  replicas: 2  # Number of replicas (adjust based on your requirements)
+  replicas: 1
   selector:
     matchLabels:
       app: flash-book-api
@@ -16,14 +14,6 @@ spec:
     spec:
       containers:
         - name: flash-book-api
-          image: ${{ secrets.DOCKER_USERNAME }}/flash-book-api:latest  # This will be updated during CI/CD
+          image: abhishekcrm/flash-book-api:latest  # Ensure this image name is correct
           ports:
             - containerPort: 5000
-          env:
-            - name: FLASK_ENV
-              value: "production"
-            - name: DATABASE_URL
-              valueFrom:
-                secretKeyRef:
-                  name: db-secrets
-                  key: database-url 
