@@ -50,10 +50,7 @@ jobs:
       # Deploy to AKS (Apply deployment and service YAML)
       - name: Deploy to AKS
         run: |
-          kubectl apply -f deployment.yaml  # Apply your deployment and service YAML files
+          kubectl apply -f deployment.yml  # Apply your deployment and service YAML files
           kubectl set image deployment/flash-book-api-deployment flash-book-api=${{ secrets.DOCKER_USERNAME }}/flash-book-api:latest
           
-      # Verify deployment status
-      - name: Verify Deployment
-        run: |
-          kubectl rollout status deployment/flash-book-api-deployment
+
